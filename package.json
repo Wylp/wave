@@ -1,0 +1,26 @@
+{
+  "name": "wave",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:api:dev": "./node_modules/.bin/nodemon -e \"*\" --legacy-watch --watch ./ --inspect=0.0.0.0:9229 --exec node src/app.js",
+    "start:api:deploy": "node app.js",
+    "test": "jest --silent"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.0.1",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.3",
+    "redis": "^4.6.10",
+    "swagger-express-mw": "^0.7.0",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.1"
+  }
+}

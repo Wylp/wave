@@ -1,0 +1,48 @@
+version: '3.5'
+
+services:
+  wave:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: wave
+    working_dir: /wave
+    volumes:
+      - ./:/wave
+    environment:
+      NODE_ENV: "development"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: root
+      POSTGRES_PASS: a89e69f4-7cca-11ee-98a0-33e7f02be9d7
+      POSTGRES_DB: main
+      TOKEN_SECRET: 75d77646-7e87-11ee-9b5c-a7f601188847
+      SALT_ROUNDS: 8
+      PORT: 8081
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports:
+      - 8081:8081
+
+  postgres:
+    image: postgres:12.2-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: a89e69f4-7cca-11ee-98a0-33e7f02be9d7
+      POSTGRES_DB: main
+    volumes:
+      - ./database_schema:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+  
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - 6379:6379

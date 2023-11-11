@@ -1,0 +1,410 @@
+swagger: "2.0"
+info:
+  description: "Flood api to register and list floods"
+  version: "1.0.0"
+  title: "wave"
+basePath: "/api/v1"
+consumes:
+  - "application/json"
+  - "application/octet-stream"
+produces:
+  - "application/json"
+tags:
+  - name: "Users"
+    description: "User Endpoints"
+  - name: "Flood"
+    description: "Flood endpoints endpoints"
+paths:
+  /create-user:
+    post:
+      summary: User Registration
+      tags: 
+        - "Users"
+      x-swagger-router-controller: app
+      operationId: createUserHandler
+      parameters:
+        - name: body
+          in: body
+          description: "Object containing user details"
+          schema: 
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              username:
+                type: string
+              password:
+                type: string
+              email:
+                type: string
+              userLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+          required: true
+      responses:
+        '200':
+          description: User registered successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+              username:
+                type: string
+        '500':
+          description: Internal server error
+
+  /login:
+    post:
+      summary: User Login
+      tags: 
+        - "Users"
+      x-swagger-router-controller: app
+      operationId: loginHandler
+      parameters:
+        - name: body
+          in: body
+          description: "Object containing user details"
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              
+      responses:
+        '200':
+          description: Login successful
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+        '500':
+          description: Internal server error
+  /floods:
+    get:
+      summary: List of Floods
+      tags: 
+        - "Flood"
+      x-swagger-router-controller: app
+      operationId: listFloodsHandler
+      parameters:
+        - in: query
+          name: latitude
+          type: number
+          description: Latitude for geolocation filtering
+        - in: query
+          name: longitude
+          type: number
+          description: Longitude for geolocation filtering
+      responses:
+        '200':
+          description: List of floods retrieved successfully
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                userId:
+                  type: string
+                floodLocation:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                userLocation:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                date:
+                  type: string
+                startTime:
+                  type: string
+                endTime:
+                  type: string
+                waterLevel:
+                  type: string
+                descriptions:
+                  type: array
+                  items:
+                    type: string
+                attachments:
+                  type: array
+                  items:
+                    type: string
+                users:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                status:
+                  type: string
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Flood Registration
+      tags: 
+        - "Flood"
+      x-swagger-router-controller: app
+      operationId: createFloodHandler
+      parameters:
+        - name: body
+          in: body
+          description: "Object containing user details"
+          required: true
+          schema:
+              type: object
+              properties:
+                floodLocation:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                userLocation:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                dateTime:
+                  type: string
+                waterLevel:
+                  type: string
+                description:
+                  type: string
+                attachments:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Flood registered successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              userId:
+                type: string
+              floodLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              userLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              date:
+                  type: string
+              waterLevel:
+                type: string
+              descriptions:
+                type: array
+                items:
+                  type: string
+              attachments:
+                type: array
+                items:
+                  type: string
+              users:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+              status:
+                type: string
+        '500':
+          description: Internal server error
+
+  /floods/{id}:
+    get:
+      summary: Flood Details
+      tags: 
+        - "Flood"
+      x-swagger-router-controller: app
+      operationId: detailedFlood
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Flood details retrieved successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              userId:
+                type: string
+              floodLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              userLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              date:
+                type: string
+              startTime:
+                  type: string
+              endTime:
+                  type: string
+              waterLevel:
+                type: string
+              description:
+                type: string
+              attachments:
+                type: array
+                items:
+                  type: string
+              users:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+              status:
+                type: string
+        '500':
+          description: Internal server error
+    put:
+      summary: Flood Update
+      tags: 
+        - "Flood"
+      x-swagger-router-controller: app
+      operationId: updateFlood
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: "Object containing user details"
+          required: true
+          schema:
+            type: object
+            properties:
+              floodLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              userLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              dateTime:
+                type: string
+              waterLevel:
+                type: string
+              description:
+                type: string
+              attachments:
+                type: string
+              status:
+                type: string
+      responses:
+        '200':
+          description: Flood updated successfully
+          schema:
+            type: object
+            properties:
+              floodLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              userLocation:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+              dateTime:
+                type: string
+              waterLevel:
+                type: string
+              description:
+                type: string
+              attachments:
+                type: string
+              status:
+                type: string
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Flood Deletion
+      tags: 
+        - "Flood"
+      x-swagger-router-controller: app
+      operationId: deleteFlood
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Flood deleted successfully
+        '500':
+          description: Internal server error

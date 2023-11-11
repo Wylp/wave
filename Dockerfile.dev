@@ -1,0 +1,21 @@
+FROM node:18-alpine
+
+RUN \
+apk update && \
+apk upgrade && \
+apk add --no-cache git ca-certificates wget openssh git dumb-init util-linux;
+
+WORKDIR /devops-challenge
+RUN chown -R node /devops-challenge
+RUN chown node /etc
+RUN chown node /var/log/
+RUN chown node /home
+
+COPY --chown=node:node ["package.json", "package-lock.json", "./"]
+
+RUN runuser -u node -- npm ci && mv node_modules ../
+
+USER node
+COPY --chown=node:node . .
+
+CMD ["npm", "run", "start:api:dev"]
