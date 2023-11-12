@@ -10,7 +10,7 @@ const updateFloodRepositories = async ({
             end_date,
             status,
             flood_radius,
-            update_at: new Date()
+            updated_at: new Date()
         }).where({
             flood_id
         })

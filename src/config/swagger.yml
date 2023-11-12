@@ -29,9 +29,9 @@ paths:
           schema: 
             type: object
             properties:
-              firstName:
+              first_name:
                 type: string
-              lastName:
+              last_name:
                 type: string
               username:
                 type: string
@@ -39,7 +39,7 @@ paths:
                 type: string
               email:
                 type: string
-              userLocation:
+              user_location:
                 type: object
                 properties:
                   latitude:
@@ -55,9 +55,9 @@ paths:
             properties:
               id:
                 type: string
-              firstName:
+              first_name:
                 type: string
-              lastName:
+              last_name:
                 type: string
               username:
                 type: string
@@ -284,7 +284,7 @@ paths:
       tags: 
         - "Flood"
       x-swagger-router-controller: app
-      operationId: updateFlood
+      operationId: updateFloodHandler
       parameters:
         - in: query
           name: flood_id

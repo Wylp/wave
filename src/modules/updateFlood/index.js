@@ -1,3 +1,3 @@
 module.exports = {
-    ...require('./function/createFloodHandler'),
+    ...require('./function/updateFloodHandler'),
 }

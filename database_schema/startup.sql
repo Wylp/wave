@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS floods (
 );
 
 CREATE TABLE IF NOT EXISTS users_contribution (
-    "flood_id" VARCHAR(36) PRIMARY KEY,
+    "flood_id" VARCHAR(36) NOT NULL,
     "user_id" VARCHAR(36) NOT NULL,
     "user_location" POINT NOT NULL,
     "user_description" VARCHAR(300),

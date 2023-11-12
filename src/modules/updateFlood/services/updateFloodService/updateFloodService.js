@@ -73,6 +73,7 @@ const updateFloodService = async ({
         if (this_user_has_contribuition) {
             await updateUserContributionRepositories({
                 flood_id,
+                user_id,
                 user_location,
                 water_level,
                 description,

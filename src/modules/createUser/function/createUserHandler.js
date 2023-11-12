@@ -11,12 +11,12 @@ const {
 const createUserHandler = async (req, res, next) => {
     try {
         const {
-            firstName,
-            lastName,
+            first_name: firstName,
+            last_name: lastName,
             username,
             password,
             email,
-            userLocation
+            user_location: userLocation
         } = req.body;
 
         await createUserService({
