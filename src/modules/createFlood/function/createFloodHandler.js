@@ -11,24 +11,31 @@ const {
 const createFloodHandler = async (req, res, next) => {
     try {
         const {
-            firstName,
-            lastName,
-            username,
-            password,
-            email,
-            userLocation
+            floodLocation,
+            userLocation,
+            dateTime,
+            waterLevel,
+            description,
+            attachments
         } = req.body;
 
-        await createFloodService({
-            firstName,
-            lastName,
-            username,
-            email,
-            password,
-            userLocation
+        const {
+            user_id
+        } = req.auth
+
+        const {
+            flood_id
+        } = await createFloodService({
+            floodLocation,
+            userLocation,
+            dateTime,
+            waterLevel,
+            description,
+            attachments,
+            user_id
         });
 
-        return res.status(httpStatusCodes.OK).send();
+        return res.status(httpStatusCodes.OK).send({ flood_id });
     } catch (error) {
         return httpErrorHandler({ req, res, error })
     }
@@ -37,3 +44,4 @@ const createFloodHandler = async (req, res, next) => {
 module.exports = {
     createFloodHandler
 }
+

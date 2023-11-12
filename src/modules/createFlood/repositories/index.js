@@ -1,3 +1,4 @@
 module.exports = Object.freeze({
-    ...require("./getUserByEmail/getUserByEmail")
+    ...require("./createFloodRepositories/createFloodRepositories"),
+    ...require("./createUserContributionsRepositories/createUserContributionsRepositories"),
 })

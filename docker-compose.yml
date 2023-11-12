@@ -20,6 +20,7 @@ services:
       POSTGRES_DB: main
       TOKEN_SECRET: 75d77646-7e87-11ee-9b5c-a7f601188847
       SALT_ROUNDS: 8
+      USER_DISTANCE_ALLOW: 200
       PORT: 8081
     links:
       - redis

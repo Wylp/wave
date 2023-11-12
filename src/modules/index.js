@@ -1,4 +1,7 @@
 module.exports = {
     ...require("./createUser"),
-    ...require("./login")
+    ...require("./login"),
+    ...require("./createFlood"),
+    ...require("./detailedFlood"),
+    ...require("./deleteFlood"),
 }

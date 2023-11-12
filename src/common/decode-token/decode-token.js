@@ -13,7 +13,7 @@ const decodeToken = () => {
         }
 
         const {
-            'jwt-auth-key': token
+            authorization: token
         } = req.headers;
 
         try {
@@ -26,7 +26,7 @@ const decodeToken = () => {
             req.auth = token_payload;
 
         } catch (err) {
-            return res.status(401).send({ response: 'Unauthorized', })
+            return res.status(401).send({ response: 'Unauthorized' })
         }
         next();
     }

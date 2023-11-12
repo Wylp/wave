@@ -1,38 +1,62 @@
-const bcrypt = require('bcryptjs');
-
 const { 
-    createFloodRepositories 
-} = require('../../repositories/createFloodRepositories/createFloodRepositories');
+    createFloodRepositories,
+    createUserContributionsRepositories
+} = require('../../repositories');
 
-const {
-    verifyAlreadyUserByEmail
-} = require('../verifyAlreadyUserByEmail/verifyAlreadyUserByEmail')
+const { verifyUserProximity } = require('../verifyUserProximity/verifyUserProximity');
+const { rollbackTransaction, getTransaction, commitTransaction } = require('../../../../common');
 
 const createFloodService = async ({
-    firstName,
-    lastName,
-    username,
-    password,
-    email,
-    userLocation
+    floodLocation,
+    userLocation,
+    dateTime,
+    waterLevel,
+    description,
+    user_id
 } = {}) => {
+
+    const {
+        transaction
+    } = await getTransaction({
+        db: process.env.POSTGRES_DB
+    });
+
     try {
-
-        await verifyAlreadyUserByEmail({
-            email
-        });
-
-        const hashPassword = bcrypt.hashSync(password, Number(process.env.SALT_ROUNDS));
-        
-        await createFloodRepositories({
-            firstName,
-            lastName,
-            username,
-            email,
-            password: hashPassword
+        const {
+            user_distance
+        } = await verifyUserProximity({
+            floodLocation,
+            userLocation
         })
 
+        const {
+            flood_id
+        } = await createFloodRepositories({
+            flood_center_location: floodLocation,
+            start_date: dateTime,
+            end_date: dateTime,
+            status: "pending",
+            flood_radius: user_distance,
+            transaction
+        })
+
+        await createUserContributionsRepositories({
+            flood_id,
+            user_id,
+            user_location: userLocation,
+            water_level: waterLevel,
+            description: description,
+            transaction
+        })
+
+        await commitTransaction({ transaction })
+
+        return {
+            flood_id
+        }
     } catch (error) {
+        console.error(error)
+        await rollbackTransaction({ transaction })
         throw error;
     }
 }

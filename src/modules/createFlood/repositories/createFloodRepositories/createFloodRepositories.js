@@ -1,42 +1,38 @@
-const { v4 } = require('uuid');
-const {
-    getTransaction, rollbackTransaction, commitTransaction
-} = require('../../../../common')
+const { format } = require('date-fns');
+const { v5 } = require('uuid');
 
-const createUserRepositories = async ({
-    firstName,
-    lastName,
-    username,
-    email,
-    password
+const createFloodRepositories = async ({
+    flood_center_location,
+    start_date,
+    end_date,
+    status,
+    flood_radius,
+    transaction
 }) => {
-
-    const {
-        transaction
-    } = await getTransaction({
-        db: process.env.POSTGRES_DB
-    });
-
     try {
 
-        await transaction("flood").insert({
-            user_id: v4(),
-            first_name: firstName,
-            last_name: lastName,
-            username: username,
-            user_email: email,
-            password_encrypted: password
+        const formated_start_date = format(new Date(start_date), "yyyy-MM-dd");
+        const key = [formated_start_date, Object.values(flood_center_location).join(":")].join("_");
+        const flood_id = v5(key, v5.URL);
+
+        await transaction("floods").insert({
+            flood_id,
+            flood_center_location: `(${flood_center_location.latitude},${flood_center_location.longitude})`,
+            start_date,
+            end_date,
+            status,
+            flood_radius
         })
 
-        await commitTransaction({ transaction })
-
+        return {
+            flood_id
+        }
     }catch(err){
-        rollbackTransaction({ transaction })
         console.error(err)
         throw err;
     }
 }
 
 module.exports = {
-    createUserRepositories
+    createFloodRepositories
 }
