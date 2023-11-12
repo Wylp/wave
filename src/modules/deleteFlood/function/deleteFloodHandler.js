@@ -15,7 +15,6 @@ const deleteFloodHandler = async (req, res, next) => {
         } = req.query;
 
         const {
-            user_id,
             is_admin
         } = req.auth
 

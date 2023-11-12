@@ -278,7 +278,7 @@ paths:
                 type: string
         '500':
           description: Internal server error
-  /update-flood/{id}:
+  /update-flood:
     put:
       summary: Flood Update
       tags: 
@@ -286,10 +286,11 @@ paths:
       x-swagger-router-controller: app
       operationId: updateFlood
       parameters:
-        - in: path
-          name: id
+        - in: query
+          name: flood_id
           required: true
           type: string
+          format: uuid
         - name: body
           in: body
           description: "Object containing user details"
@@ -297,27 +298,18 @@ paths:
           schema:
             type: object
             properties:
-              floodLocation:
+              user_location:
                 type: object
                 properties:
                   latitude:
                     type: number
                   longitude:
                     type: number
-              userLocation:
-                type: object
-                properties:
-                  latitude:
-                    type: number
-                  longitude:
-                    type: number
-              dateTime:
+              date_time:
                 type: string
-              waterLevel:
+              water_level:
                 type: number
               description:
-                type: string
-              attachments:
                 type: string
               status:
                 type: string
@@ -327,30 +319,9 @@ paths:
           schema:
             type: object
             properties:
-              floodLocation:
-                type: object
-                properties:
-                  latitude:
-                    type: number
-                  longitude:
-                    type: number
-              userLocation:
-                type: object
-                properties:
-                  latitude:
-                    type: number
-                  longitude:
-                    type: number
-              dateTime:
+              flood_id:
                 type: string
-              waterLevel:
-                type: number
-              description:
-                type: string
-              attachments:
-                type: string
-              status:
-                type: string
+                format: uuid
         '500':
           description: Internal server error
   /delete-flood:
