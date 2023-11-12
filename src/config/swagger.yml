@@ -100,7 +100,7 @@ paths:
       tags: 
         - "Flood"
       x-swagger-router-controller: app
-      operationId: listFloodsHandler
+      operationId: listFloodHandler
       parameters:
         - in: query
           name: latitude
@@ -118,40 +118,36 @@ paths:
             items:
               type: object
               properties:
-                id:
+                flood_id:
                   type: string
-                userId:
+                user_id:
                   type: string
-                floodLocation:
+                flood_center_location:
                   type: object
                   properties:
                     latitude:
                       type: number
                     longitude:
                       type: number
-                userLocation:
+                user_location:
                   type: object
                   properties:
                     latitude:
                       type: number
                     longitude:
                       type: number
-                date:
+                start_date:
                   type: string
-                startTime:
+                end_date:
                   type: string
-                endTime:
-                  type: string
-                waterLevel:
+                water_level:
                   type: number
-                descriptions:
+                description:
                   type: array
                   items:
                     type: string
-                attachments:
-                  type: array
-                  items:
-                    type: string
+                flood_radius:
+                  type: number
                 users:
                   type: array
                   items:
@@ -180,23 +176,23 @@ paths:
           schema:
               type: object
               properties:
-                floodLocation:
+                flood_center_location:
                   type: object
                   properties:
                     latitude:
                       type: number
                     longitude:
                       type: number
-                userLocation:
+                user_location:
                   type: object
                   properties:
                     latitude:
                       type: number
                     longitude:
                       type: number
-                dateTime:
+                date_time:
                   type: string
-                waterLevel:
+                water_level:
                   type: number
                 description:
                   type: string

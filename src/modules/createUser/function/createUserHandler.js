@@ -16,7 +16,7 @@ const createUserHandler = async (req, res, next) => {
             username,
             password,
             email,
-            user_location: userLocation
+            user_location: user_location
         } = req.body;
 
         await createUserService({
@@ -25,7 +25,7 @@ const createUserHandler = async (req, res, next) => {
             username,
             email,
             password,
-            userLocation
+            user_location
         });
 
         return res.status(httpStatusCodes.OK).send();

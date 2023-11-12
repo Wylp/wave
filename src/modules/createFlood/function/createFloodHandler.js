@@ -11,10 +11,10 @@ const {
 const createFloodHandler = async (req, res, next) => {
     try {
         const {
-            floodLocation,
-            userLocation,
-            dateTime,
-            waterLevel,
+            flood_center_location,
+            user_location,
+            date_time,
+            water_level,
             description,
             attachments
         } = req.body;
@@ -26,10 +26,10 @@ const createFloodHandler = async (req, res, next) => {
         const {
             flood_id
         } = await createFloodService({
-            floodLocation,
-            userLocation,
-            dateTime,
-            waterLevel,
+            flood_center_location,
+            user_location,
+            date_time,
+            water_level,
             description,
             attachments,
             user_id

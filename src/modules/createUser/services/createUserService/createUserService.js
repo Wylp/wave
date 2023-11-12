@@ -14,7 +14,7 @@ const createUserService = async ({
     username,
     password,
     email,
-    userLocation
+    user_location
 } = {}) => {
     try {
 

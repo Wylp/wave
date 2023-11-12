@@ -7,10 +7,10 @@ const { verifyUserProximity } = require('../verifyUserProximity/verifyUserProxim
 const { rollbackTransaction, getTransaction, commitTransaction } = require('../../../../common');
 
 const createFloodService = async ({
-    floodLocation,
-    userLocation,
-    dateTime,
-    waterLevel,
+    flood_center_location,
+    user_location,
+    date_time,
+    water_level,
     description,
     user_id
 } = {}) => {
@@ -25,16 +25,16 @@ const createFloodService = async ({
         const {
             user_distance
         } = await verifyUserProximity({
-            floodLocation,
-            userLocation
+            flood_center_location,
+            user_location
         })
 
         const {
             flood_id
         } = await createFloodRepositories({
-            flood_center_location: floodLocation,
-            start_date: dateTime,
-            end_date: dateTime,
+            flood_center_location: flood_center_location,
+            start_date: date_time,
+            end_date: date_time,
             status: "pending",
             flood_radius: user_distance,
             transaction
@@ -43,8 +43,8 @@ const createFloodService = async ({
         await createUserContributionsRepositories({
             flood_id,
             user_id,
-            user_location: userLocation,
-            water_level: waterLevel,
+            user_location: user_location,
+            water_level: water_level,
             description: description,
             transaction
         })

@@ -4,5 +4,6 @@ module.exports = {
     ...require("./createFlood"),
     ...require("./detailedFlood"),
     ...require("./deleteFlood"),
-    ...require("./updateFlood")
+    ...require("./updateFlood"),
+    ...require("./listFlood"),
 }

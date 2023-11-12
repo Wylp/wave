@@ -29,3 +29,5 @@ CREATE TABLE IF NOT EXISTS users_contribution (
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW()
 );
+
+CREATE EXTENSION earthdistance CASCADE;

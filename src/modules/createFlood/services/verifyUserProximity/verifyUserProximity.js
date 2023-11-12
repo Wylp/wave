@@ -1,19 +1,19 @@
 const { getDistance } = require("geolib");
 
 const verifyUserProximity = async ({
-    floodLocation,
-    userLocation
+    flood_center_location,
+    user_location
 }) => {
     try {
         
         const user_distance = getDistance(
             {
-                latitude: floodLocation.latitude,
-                longitude: floodLocation.longitude
+                latitude: flood_center_location.latitude,
+                longitude: flood_center_location.longitude
             },
             {
-                latitude: userLocation.latitude,
-                longitude: userLocation.longitude
+                latitude: user_location.latitude,
+                longitude: user_location.longitude
             }
         );
 
